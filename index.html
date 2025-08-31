@@ -10,19 +10,22 @@
     /* ------------------
        Base & Theme
     ------------------- */
-    :root{
-      --bg: #0b0f1a;            /* page background */
-      --surface: #0f172a;       /* section background */
-      --text: #e5e7eb;          /* body text */
-      --muted: #a1a1aa;         /* muted text */
-      --card: #111827;          /* card background */
-      --border: #1f2937;        /* borders */
-      --accent: #8b5cf6;        /* violet */
-      --accent-2: #3b82f6;      /* blue */
-      --ok: #22c55e;
-      --warn: #f59e0b;
-      --danger: #ef4444;
-    }
+  :root{
+  --bg: #0b0f1a;
+  --surface: #0f172a;
+  --text: #e5e7eb;
+  --muted: #a1a1aa;
+  --card: #111827;
+  --border: #1f2937;
+
+  /* 🔥 Updated with logo colors */
+  --accent: #FF6A3D;   /* Orange from logo */
+  --accent-2: #F31263; /* Pink/Magenta from logo */
+  --accent-3: #7A1FA0; /* Purple from logo */
+
+  --ok: #22c55e;
+  --warn: #f59e0b;
+  --danger: #ef4444;}
     html{scroll-behavior:smooth}
     *,*::before,*::after{box-sizing:border-box}
     body{
@@ -38,7 +41,7 @@
     .btn{
       display:inline-flex; align-items:center; justify-content:center; gap:.5rem;
       padding:.9rem 1.1rem; border-radius:.9rem; font-weight:600; border:1px solid transparent;
-      background: linear-gradient(135deg, var(--accent), var(--accent-2)); color:white;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2), var(--accent-3));
       transition: transform .1s ease, box-shadow .2s ease, opacity .2s ease;
     }
     .btn:hover{transform:translateY(-1px); box-shadow:0 8px 24px rgba(59,130,246,.35)}
@@ -77,8 +80,56 @@
     /* ------------------
        Hero
     ------------------- */
-    .hero{position:relative; overflow:hidden; background: radial-gradient(1000px 450px at 10% -10%, rgba(139,92,246,.35), transparent), radial-gradient(800px 350px at 100% 0%, rgba(59,130,246,.25), transparent)}
-    .hero-inner{display:grid; gap:1.25rem; grid-template-columns: 1.2fr; align-items:center; min-height: min(90vh, 850px)}
+    /* ------------------
+   Hero
+------------------- */
+.hero {
+  position: relative;
+  overflow: hidden;
+  color: var(--text);
+
+  /* keep your gradient background */
+  background: radial-gradient(1000px 450px at 10% -10%, rgba(139,92,246,.35), transparent),
+              radial-gradient(800px 350px at 100% 0%, rgba(59,130,246,.25), transparent);
+}
+
+/* Watermark logo effect */
+.hero::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: url("assets/logo.png") no-repeat center;
+  background-size: 400px;   /* adjust size */
+  opacity: 0.08;            /* faint watermark */
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Gradient background layer */
+.hero::after {
+  content: "";
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: radial-gradient(1000px 450px at 10% -10%, rgba(139,92,246,.35), transparent),
+              radial-gradient(800px 350px at 100% 0%, rgba(59,130,246,.25), transparent);
+  z-index: -1;
+}
+
+.hero * {
+  position: relative;
+  z-index: 1; /* keep text above watermark */
+}
+
+.hero-inner {
+  display: grid;
+  gap: 1.25rem;
+  grid-template-columns: 1.2fr;
+  align-items: center;
+  min-height: min(90vh, 850px);
+}
+
     .eyebrow{color:var(--muted); font-weight:600; letter-spacing:.18em; text-transform:uppercase}
     .hero h1{font-size:clamp(2rem, 3.5vw + 1rem, 4rem); line-height:1.1; margin:0}
     .lead{font-size:clamp(1rem, .6vw + .9rem, 1.2rem); color:#cbd5e1; max-width:60ch}
@@ -157,19 +208,10 @@
   <header>
     <div class="container nav" role="navigation" aria-label="Main">
       <div class="brand">
-        <!-- Simple inline SVG logo -->
-        <svg class="logo" viewBox="0 0 100 100" aria-hidden="true">
-          <defs>
-            <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0%" stop-color="#8b5cf6"/>
-              <stop offset="100%" stop-color="#3b82f6"/>
-            </linearGradient>
-          </defs>
-          <rect x="8" y="8" width="84" height="84" rx="18" fill="url(#g)"/>
-          <path d="M30 64 L50 26 L70 64 M38 64 h24" fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round"/>
-        </svg>
-        <strong class="brand-name">AI Clash 🤖</strong>
-      </div>
+  <img src="assests\logo.png" alt="AI Clash 🤖 Logo" class="logo" />
+  <strong class="brand-name">AI Clash 🤖</strong>
+  </div>
+
 
       <button id="nav-toggle" class="nav-toggle" aria-controls="nav-menu" aria-expanded="false" aria-label="Toggle menu">
         <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
@@ -290,6 +332,7 @@
             <h3>Eligibility</h3>
             <p>Open to all college students. All are welcome.</p>
             <h3>Contact</h3>
+            <p>Email ID: techvayuna2k19@gmail.com</p>
             <p>Instagram: <a href="https://www.instagram.com/tech_vayuna?igsh=MWx2a2Jpb2t5NTJsbA==">techvayuna@club.org</a></p>
           </aside>
         </div>
@@ -307,14 +350,14 @@
             <p>Professor • At SRMIST</p>
           </article>
           <article class="speaker card shadow">
-            <div class="avatar" aria-hidden="true">S</div>
+            <div class="avatar" aria-hidden="true">R</div>
             <h4>Ramesh</h4>
             <p>Professor • At SRMIST</p>
           </article>
           <article class="speaker card shadow">
             <div class="avatar" aria-hidden="true">N</div>
             <h4>Nisha</h4>
-            <p>CEO of X technologies • Sponsers</p>
+            <p>CEO of X technologies • Sponser</p>
           </article>
         </div>
       </div>
@@ -380,41 +423,15 @@
                 <label for="phone">Phone</label>
                 <input id="phone" name="phone" type="tel" inputmode="numeric" placeholder="10-digit number" pattern="[0-9]{10}" required />
               </div>
-              <div>
-                <label for="year">Year</label>
-                <select id="year" name="year" required>
-                  <option value="1" disabled selected>Select year</option>
-                  <option>1st</option>
-                  <option>2nd</option>
-                  <option>3rd</option>
-                  <option>4th</option>
-                  <option>PG</option>
-                </select>
-              </div>
-            </div>
-            <div>
-              <label for="track">Preferred Track</label>
-              <select id="track" name="track" required>
-                <option value="" disabled selected>Choose a track</option>
-                <option>Build Sprint</option>
-                <option>Algo Arena</option>
-                <option>Lightning Talks</option>
-              </select>
-            </div>
             <div>
               <label for="notes">Notes (optional)</label>
               <textarea id="notes" name="notes" rows="3" placeholder="Dietary restrictions, team members, etc."></textarea>
             </div>
             <div class="row">
-              <label style="display:flex; gap:.6rem; align-items:center">
-                <input type="checkbox" id="agree" required />
-                <span>I agree to the event rules and code of conduct.</span>
-              </label>
               <div style="text-align:right">
                 <button type="submit" class="btn">Submit Registration</button>
               </div>
             </div>
-            <p id="reg-hint" class="hint">You can replace this form with a Google Form by turning the Register button into a link.</p>
           </form>
         </div>
       </div>
@@ -448,7 +465,7 @@
       <p class="mb-0">© <span id="year"></span> Tech Vayuna Club • All rights reserved.</p>
       <div style="display:flex; gap:.6rem">
         <a class="badge" href="https://www.instagram.com/tech_vayuna?igsh=MWx2a2Jpb2t5NTJsbA==" aria-label="Instagram">Instagram</a>
-        <a class="badge" href="mailto:techvayuna@club.org" aria-label="Email">Email</a>
+        <a class="badge" href="mailto:techvayuna2k19@gmail.com" aria-label="Email">Email</a>
       </div>
     </div>
   </footer>
