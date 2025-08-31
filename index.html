@@ -1,167 +1,500 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tech Vayuna Event</title>
-
-  <!-- Google Font -->
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
-
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Tech Vayuna — Event 2025</title>
+  <meta name="description" content="Official landing page for Tech Vayuna's upcoming event. Register, view schedule, speakers, and FAQs." />
+  <meta name="theme-color" content="#0b0f1a" />
   <style>
-    /* General Reset */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Montserrat', sans-serif;
+    /* ------------------
+       Base & Theme
+    ------------------- */
+    :root{
+      --bg: #0b0f1a;            /* page background */
+      --surface: #0f172a;       /* section background */
+      --text: #e5e7eb;          /* body text */
+      --muted: #a1a1aa;         /* muted text */
+      --card: #111827;          /* card background */
+      --border: #1f2937;        /* borders */
+      --accent: #8b5cf6;        /* violet */
+      --accent-2: #3b82f6;      /* blue */
+      --ok: #22c55e;
+      --warn: #f59e0b;
+      --danger: #ef4444;
+    }
+    html{scroll-behavior:smooth}
+    *,*::before,*::after{box-sizing:border-box}
+    body{
+      margin:0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
+      color:var(--text); background: var(--bg); line-height:1.6; -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+    }
+    img,svg,video{max-width:100%; height:auto; display:block}
+    a{color:inherit; text-decoration:none}
+    .container{width:min(1200px, 100%); margin-inline:auto; padding-inline:clamp(1rem, 2vw, 2rem)}
+    .section{padding:clamp(3rem, 6vw, 5rem) 0}
+    .shadow{box-shadow: 0 10px 30px rgba(0,0,0,.25)}
+    .card{background:var(--card); border:1px solid var(--border); border-radius:1.25rem}
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center; gap:.5rem;
+      padding:.9rem 1.1rem; border-radius:.9rem; font-weight:600; border:1px solid transparent;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2)); color:white;
+      transition: transform .1s ease, box-shadow .2s ease, opacity .2s ease;
+    }
+    .btn:hover{transform:translateY(-1px); box-shadow:0 8px 24px rgba(59,130,246,.35)}
+    .btn.ghost{background:transparent; border-color:var(--border); color:var(--text)}
+    .sr-only{position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0}
+    .skip-link{position:absolute; left:-9999px; top:0; background:#fff; color:#000; padding:.5rem 1rem; border-radius:.5rem}
+    .skip-link:focus{left:1rem; top:1rem; z-index:9999}
+
+    /* ------------------
+       Header & Nav
+    ------------------- */
+    header{position:sticky; top:0; z-index:100; backdrop-filter:saturate(180%) blur(8px); background:rgba(11,15,26,.6); border-bottom:1px solid var(--border)}
+    .nav{display:flex; align-items:center; justify-content:space-between; padding:.75rem 0}
+    .brand{display:flex; align-items:center; gap:.75rem}
+    .logo{width:36px; height:36px}
+    .brand-name{font-weight:800; letter-spacing:.3px}
+    nav ul{list-style:none; display:flex; gap:1rem; padding:0; margin:0}
+    .nav a{padding:.5rem .75rem; border-radius:.6rem}
+    .nav a:hover, .nav a:focus-visible{background:rgba(255,255,255,.06)}
+    .nav-actions{display:flex; gap:.6rem; align-items:center}
+
+    /* Mobile menu */
+    .nav-toggle{display:none; background:none; border:0; padding:.5rem; border-radius:.6rem; color:var(--text)}
+    .nav-toggle:focus-visible{outline:2px solid var(--accent)}
+    #nav-menu{display:flex; align-items:center; gap:1.2rem}
+
+    @media (max-width: 900px){
+      #nav-menu{position:fixed; inset:64px 0 auto 0; background:rgba(15,23,42,.96); padding:1rem; border-bottom:1px solid var(--border); display:none; flex-direction:column}
+      #nav-menu.open{display:flex}
+      .nav-toggle{display:inline-flex}
+      nav ul{flex-direction:column; width:100%}
+      nav a{width:100%}
+      .nav-actions{width:100%; justify-content:space-between}
     }
 
-    body {
-      background-color: #0d0d0d;
-      color: #f5f5f5;
-      line-height: 1.6;
-    }
+    /* ------------------
+       Hero
+    ------------------- */
+    .hero{position:relative; overflow:hidden; background: radial-gradient(1000px 450px at 10% -10%, rgba(139,92,246,.35), transparent), radial-gradient(800px 350px at 100% 0%, rgba(59,130,246,.25), transparent)}
+    .hero-inner{display:grid; gap:1.25rem; grid-template-columns: 1.2fr; align-items:center; min-height: min(90vh, 850px)}
+    .eyebrow{color:var(--muted); font-weight:600; letter-spacing:.18em; text-transform:uppercase}
+    .hero h1{font-size:clamp(2rem, 3.5vw + 1rem, 4rem); line-height:1.1; margin:0}
+    .lead{font-size:clamp(1rem, .6vw + .9rem, 1.2rem); color:#cbd5e1; max-width:60ch}
+    .hero-cta{display:flex; gap:.8rem; flex-wrap:wrap; align-items:center}
+    .meta{display:flex; gap:1rem; flex-wrap:wrap; color:#cbd5e1}
+    .meta-item{display:flex; align-items:center; gap:.5rem; padding:.4rem .7rem; border:1px dashed var(--border); border-radius:.7rem}
 
-    header {
-      text-align: center;
-      padding: 2rem 1rem;
-      background: linear-gradient(to right, #141E30, #243B55);
-    }
+    /* ------------------
+       Features / Tracks
+    ------------------- */
+    .grid{display:grid; gap:1rem; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr))}
+    .feature{padding:1.1rem}
+    .feature h3{margin:.2rem 0 .4rem; font-size:1.05rem}
+    .feature p{color:#cbd5e1; margin:0}
 
-    header img {
-      width: 120px;
-      margin-bottom: 1rem;
-    }
+    /* ------------------
+       Schedule Timeline
+    ------------------- */
+    .timeline{position:relative; padding-left:1.2rem}
+    .timeline::before{content:""; position:absolute; left:.3rem; top:0; bottom:0; width:2px; background:linear-gradient(var(--accent), transparent)}
+    .tl-item{position:relative; padding-left:1rem; margin:1rem 0}
+    .tl-item::before{content:""; position:absolute; left:-.15rem; top:.35rem; width:.6rem; height:.6rem; border-radius:50%; background:var(--accent-2); box-shadow:0 0 0 4px rgba(59,130,246,.2)}
+    .tl-time{font-weight:700; color:#f3f4f6}
+    .tl-title{margin:.15rem 0; font-weight:700}
+    .tl-desc{color:#cbd5e1; margin:0}
 
-    header h1 {
-      font-size: 2.5rem;
-      font-weight: 700;
-      margin-bottom: 0.5rem;
-    }
+    /* ------------------
+       Speakers
+    ------------------- */
+    .speaker{padding:1rem; text-align:center}
+    .avatar{width:84px; height:84px; border-radius:50%; margin-inline:auto; margin-bottom:.6rem; background: radial-gradient(circle at 30% 30%, var(--accent), var(--accent-2)); display:grid; place-items:center; font-weight:800}
+    .speaker h4{margin:.4rem 0 .2rem}
+    .speaker p{margin:0; color:#cbd5e1}
 
-    header p {
-      font-size: 1.2rem;
-      color: #ddd;
-    }
+    /* ------------------
+       Registration
+    ------------------- */
+    form{display:grid; gap:.9rem; grid-template-columns: 1fr}
+    .row{display:grid; gap:.9rem; grid-template-columns: 1fr}
+    label{font-weight:600}
+    input, select, textarea{width:100%; background:#0b1220; color:var(--text); border:1px solid var(--border); border-radius:.7rem; padding:.8rem .9rem}
+    input::placeholder, textarea::placeholder{color:#9aa3b2}
+    .hint{color:#a1a1aa; font-size:.9rem}
+    @media (min-width: 720px){ .row{grid-template-columns: 1fr 1fr} }
 
-    .event-details {
-      text-align: center;
-      padding: 2rem 1rem;
-    }
+    /* ------------------
+       FAQ
+    ------------------- */
+    .faq{display:grid; gap:.8rem}
+    .faq button{width:100%; text-align:left; background:#0b1220; color:var(--text); border:1px solid var(--border); padding:1rem; border-radius:.9rem; font-weight:700}
+    .faq button[aria-expanded="true"]{border-color:var(--accent-2)}
+    .faq .panel{display:none; padding:1rem; color:#cbd5e1}
+    .faq .panel.open{display:block}
 
-    .event-details h2 {
-      font-size: 1.8rem;
-      margin-bottom: 1rem;
-      color: #00d4ff;
-    }
+    /* ------------------
+       Footer
+    ------------------- */
+    footer{border-top:1px solid var(--border); padding:2rem 0; color:#9aa3b2}
+    .footer-grid{display:grid; gap:1rem; grid-template-columns: 1fr; align-items:center}
+    @media (min-width: 720px){ .footer-grid{grid-template-columns: 1fr auto} }
 
-    .event-details p {
-      font-size: 1.1rem;
-      margin: 0.3rem 0;
-    }
-
-    .about {
-      padding: 2rem 1.5rem;
-      text-align: center;
-      max-width: 800px;
-      margin: auto;
-    }
-
-    .about h2 {
-      font-size: 1.8rem;
-      margin-bottom: 1rem;
-      color: #00ff99;
-    }
-
-    .about p {
-      font-size: 1.1rem;
-      color: #ccc;
-    }
-
-    .register {
-      text-align: center;
-      margin: 2rem 0;
-    }
-
-    .register a {
-      background: #00ff99;
-      color: #000;
-      padding: 1rem 2rem;
-      font-size: 1.2rem;
-      font-weight: bold;
-      border-radius: 8px;
-      text-decoration: none;
-      transition: 0.3s;
-    }
-
-    .register a:hover {
-      background: #00d4ff;
-      color: #000;
-    }
-
-    footer {
-      text-align: center;
-      padding: 1rem;
-      background: #111;
-      font-size: 0.9rem;
-      color: #777;
-    }
-
-    /* Responsive */
-    @media (max-width: 768px) {
-      header h1 {
-        font-size: 2rem;
-      }
-      .event-details h2,
-      .about h2 {
-        font-size: 1.5rem;
-      }
-      .register a {
-        font-size: 1rem;
-        padding: 0.8rem 1.5rem;
-      }
-    }
+    /* ------------------
+       Utilities
+    ------------------- */
+    .center{text-align:center}
+    .mb-1{margin-bottom:.5rem} .mb-2{margin-bottom:1rem} .mb-3{margin-bottom:1.5rem} .mb-4{margin-bottom:2rem}
+    .mt-0{margin-top:0}
+    .badge{display:inline-block; padding:.25rem .55rem; font-size:.8rem; border-radius:.5rem; border:1px solid var(--border); color:#d1d5db}
+    .section-title{font-size:clamp(1.35rem, 1.8vw + .7rem, 2rem); line-height:1.2; margin:.2rem 0 1rem}
   </style>
 </head>
 <body>
+  <a href="#main" class="skip-link">Skip to content</a>
 
-  <!-- Header Section -->
+  <!-- Header / Navigation -->
   <header>
-    <img src="logo.png" alt="Tech Vayuna Logo">
-    <h1>Tech Vayuna 2025</h1>
-    <p>Unleash the Future of Technology</p>
+    <div class="container nav" role="navigation" aria-label="Main">
+      <div class="brand">
+        <!-- Simple inline SVG logo -->
+        <svg class="logo" viewBox="0 0 100 100" aria-hidden="true">
+          <defs>
+            <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#8b5cf6"/>
+              <stop offset="100%" stop-color="#3b82f6"/>
+            </linearGradient>
+          </defs>
+          <rect x="8" y="8" width="84" height="84" rx="18" fill="url(#g)"/>
+          <path d="M30 64 L50 26 L70 64 M38 64 h24" fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round"/>
+        </svg>
+        <strong class="brand-name">Tech Vayuna</strong>
+      </div>
+
+      <button id="nav-toggle" class="nav-toggle" aria-controls="nav-menu" aria-expanded="false" aria-label="Toggle menu">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+      </button>
+
+      <div id="nav-menu">
+        <nav>
+          <ul>
+            <li><a href="#about">About</a></li>
+            <li><a href="#tracks">Tracks</a></li>
+            <li><a href="#schedule">Schedule</a></li>
+            <li><a href="#speakers">Speakers</a></li>
+            <li><a href="#faq">FAQ</a></li>
+          </ul>
+        </nav>
+        <div class="nav-actions">
+          <a class="btn ghost" href="#venue">Venue</a>
+          <a class="btn" href="#register">Register</a>
+        </div>
+      </div>
+    </div>
   </header>
 
-  <!-- Event Details -->
-  <section class="event-details">
-    <h2>Event Details</h2>
-    <p>📅 Date: 1st September 2025</p>
-    <p>⏰ Time: 9:00 AM - 12:00 PM</p>
-    <p>📍 Venue: SRMIST Gallery Hall</p>
-  </section>
+  <!-- Hero -->
+  <main id="main">
+    <section class="hero section">
+      <div class="container hero-inner">
+        <div>
+          <p class="eyebrow">Club Event • Open to all branches</p>
+          <h1>Tech Vayuna 2025</h1>
+          <p class="lead mb-3">A one-day celebration of code, creativity, and community. Compete in mini-hackathons, learn from lightning talks, and build your network with fellow techies.</p>
+          <div class="meta mb-3" aria-label="Event meta">
+            <span class="meta-item" title="Event date">📅 <strong>Oct 10, 2025</strong></span>
+            <span class="meta-item" title="Event time">⏰ <strong>09:30 AM – 6:30 PM</strong></span>
+            <span class="meta-item" title="Location">📍 <strong>Main Auditorium</strong></span>
+          </div>
+          <div class="hero-cta">
+            <a href="#register" class="btn" aria-label="Go to registration">Register Now</a>
+            <a href="#about" class="btn ghost" aria-label="Learn more">Learn More</a>
+          </div>
+        </div>
+      </div>
+    </section>
 
-  <!-- About Section -->
-  <section class="about">
-    <h2>About the Event</h2>
-    <p>
-      Join us at <strong>Tech Vayuna</strong>, an exciting event that brings together 
-      passionate minds, innovative ideas, and the latest trends in technology.  
-      Experience a journey of learning, networking, and inspiration. 🚀
-    </p>
-  </section>
+    <!-- About / Tracks -->
+    <section id="about" class="section">
+      <div class="container">
+        <h2 class="section-title">What is Tech Vayuna?</h2>
+        <p class="mb-3" style="color:#cbd5e1; max-width:70ch">Tech Vayuna is the official tech club event bringing students together for hands‑on workshops, challenges, and talks. Whether you're a beginner or a pro, you'll find a track that fits you.</p>
+        <div id="tracks" class="grid">
+          <article class="feature card shadow">
+            <span class="badge">Beginner Friendly</span>
+            <h3>Build Sprint</h3>
+            <p>Create a simple app or website in teams. Mentors on deck to help you ship.</p>
+          </article>
+          <article class="feature card shadow">
+            <span class="badge">Competitive</span>
+            <h3>Algo Arena</h3>
+            <p>Time‑boxed DSA puzzles and code golf. Bragging rights included.</p>
+          </article>
+          <article class="feature card shadow">
+            <span class="badge">Talks</span>
+            <h3>Lightning Talks</h3>
+            <p>12–15 min talks by seniors & guests on tools, careers, and projects.</p>
+          </article>
+        </div>
+      </div>
+    </section>
 
-  <!-- Register -->
-  <section class="register">
-    <a href="https://docs.google.com/forms/d/e/1FAIpQLSdjqBGE0ouR_sY70Dyzy-scpHP4o6Gi1rfkraZV1tBMQYIgdw/viewform?usp=header" target="_blank">
-      Register Now
-    </a>
-  </section>
+    <!-- Schedule -->
+    <section id="schedule" class="section" aria-labelledby="schedule-title">
+      <div class="container">
+        <h2 id="schedule-title" class="section-title">Schedule</h2>
+        <div class="grid">
+          <div class="card shadow" style="padding:1rem">
+            <div class="timeline" aria-label="Event timeline">
+              <div class="tl-item">
+                <div class="tl-time">09:30</div>
+                <div class="tl-title">Registration & Badges</div>
+                <p class="tl-desc">Collect badges, grab coffee.</p>
+              </div>
+              <div class="tl-item">
+                <div class="tl-time">10:15</div>
+                <div class="tl-title">Opening & Club Intro</div>
+                <p class="tl-desc">Welcome, rules, and partners.</p>
+              </div>
+              <div class="tl-item">
+                <div class="tl-time">11:00</div>
+                <div class="tl-title">Build Sprint Kickoff</div>
+                <p class="tl-desc">Form teams and start building.</p>
+              </div>
+              <div class="tl-item">
+                <div class="tl-time">14:00</div>
+                <div class="tl-title">Lightning Talks</div>
+                <p class="tl-desc">Three talks • 15 min each.</p>
+              </div>
+              <div class="tl-item">
+                <div class="tl-time">16:30</div>
+                <div class="tl-title">Demos & Judging</div>
+                <p class="tl-desc">Ship it! 2‑minute demos.</p>
+              </div>
+              <div class="tl-item">
+                <div class="tl-time">18:00</div>
+                <div class="tl-title">Awards & Thanks</div>
+                <p class="tl-desc">Track winners and closing notes.</p>
+              </div>
+            </div>
+          </div>
+          <aside class="card shadow" style="padding:1rem">
+            <h3 class="mt-0">What to Bring</h3>
+            <ul>
+              <li>Laptop + charger</li>
+              <li>Student ID</li>
+              <li>Any team materials</li>
+            </ul>
+            <h3>Eligibility</h3>
+            <p>Open to all college students. Beginners welcome.</p>
+            <h3>Contact</h3>
+            <p>Email: <a href="mailto:techvayuna@club.org">techvayuna@club.org</a></p>
+          </aside>
+        </div>
+      </div>
+    </section>
 
-  <!-- Footer -->
+    <!-- Speakers -->
+    <section id="speakers" class="section">
+      <div class="container">
+        <h2 class="section-title">Speakers & Mentors</h2>
+        <div class="grid">
+          <article class="speaker card shadow">
+            <div class="avatar" aria-hidden="true">AK</div>
+            <h4>Arun Kumar</h4>
+            <p>Backend @ Startup • Rust & Go</p>
+          </article>
+          <article class="speaker card shadow">
+            <div class="avatar" aria-hidden="true">SR</div>
+            <h4>Sneha R</h4>
+            <p>Data Scientist • GenAI</p>
+          </article>
+          <article class="speaker card shadow">
+            <div class="avatar" aria-hidden="true">VN</div>
+            <h4>V. Nisha</h4>
+            <p>UI Engineer • Design Systems</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Venue -->
+    <section id="venue" class="section">
+      <div class="container">
+        <h2 class="section-title">Venue</h2>
+        <div class="card shadow" style="padding:1rem">
+          <p class="mb-2" style="color:#cbd5e1">Main Auditorium, Your Campus. Landmarks: Library building, Gate 2. Seating is first‑come, first‑served. Signposts will guide you from the entrance.</p>
+          <div class="grid">
+            <div>
+              <p class="mb-1"><strong>Getting There</strong></p>
+              <ul>
+                <li>Bus: Route 12A, 14C → Auditorium stop</li>
+                <li>Parking: Lot B (200 spots)</li>
+              </ul>
+            </div>
+            <div>
+              <!-- Simple placeholder map (SVG) to keep file self-contained -->
+              <svg viewBox="0 0 500 250" class="card" aria-label="Map placeholder">
+                <defs>
+                  <linearGradient id="m" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0%" stop-color="#0b1220"/>
+                    <stop offset="100%" stop-color="#111827"/>
+                  </linearGradient>
+                </defs>
+                <rect width="500" height="250" rx="18" fill="url(#m)"/>
+                <g stroke="#334155" stroke-width="2">
+                  <path d="M20 200 C 120 170, 220 130, 320 160 S 480 140, 480 80" fill="none"/>
+                </g>
+                <circle cx="360" cy="120" r="10" fill="#3b82f6"/>
+                <text x="20" y="40" fill="#94a3b8" font-size="16">Map preview</text>
+                <text x="380" y="125" fill="#e5e7eb" font-size="14">Auditorium</text>
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Registration -->
+    <section id="register" class="section">
+      <div class="container">
+        <h2 class="section-title">Register</h2>
+        <div class="card shadow" style="padding:1rem">
+          <p class="hint mb-2">No fees • Certificates for participants • Limited seats</p>
+          <form id="reg-form" aria-describedby="reg-hint">
+            <div class="row">
+              <div>
+                <label for="name">Full Name</label>
+                <input id="name" name="name" type="text" placeholder="Your name" required />
+              </div>
+              <div>
+                <label for="email">Email</label>
+                <input id="email" name="email" type="email" placeholder="you@example.com" required />
+              </div>
+            </div>
+            <div class="row">
+              <div>
+                <label for="phone">Phone</label>
+                <input id="phone" name="phone" type="tel" inputmode="numeric" placeholder="10-digit number" pattern="[0-9]{10}" required />
+              </div>
+              <div>
+                <label for="year">Year</label>
+                <select id="year" name="year" required>
+                  <option value="" disabled selected>Select year</option>
+                  <option>1st</option>
+                  <option>2nd</option>
+                  <option>3rd</option>
+                  <option>4th</option>
+                  <option>PG</option>
+                </select>
+              </div>
+            </div>
+            <div>
+              <label for="track">Preferred Track</label>
+              <select id="track" name="track" required>
+                <option value="" disabled selected>Choose a track</option>
+                <option>Build Sprint</option>
+                <option>Algo Arena</option>
+                <option>Lightning Talks</option>
+              </select>
+            </div>
+            <div>
+              <label for="notes">Notes (optional)</label>
+              <textarea id="notes" name="notes" rows="3" placeholder="Dietary restrictions, team members, etc."></textarea>
+            </div>
+            <div class="row">
+              <label style="display:flex; gap:.6rem; align-items:center">
+                <input type="checkbox" id="agree" required />
+                <span>I agree to the event rules and code of conduct.</span>
+              </label>
+              <div style="text-align:right">
+                <button type="submit" class="btn">Submit Registration</button>
+              </div>
+            </div>
+            <p id="reg-hint" class="hint">You can replace this form with a Google Form by turning the Register button into a link.</p>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" class="section">
+      <div class="container">
+        <h2 class="section-title">FAQ</h2>
+        <div class="faq">
+          <div class="card" style="padding:.4rem">
+            <button type="button" class="faq-q" aria-expanded="false" aria-controls="a1">Do I need a team?</button>
+            <div id="a1" class="panel" role="region" aria-live="polite">Solo is fine. Teams up to 4 are allowed for Build Sprint.</div>
+          </div>
+          <div class="card" style="padding:.4rem">
+            <button type="button" class="faq-q" aria-expanded="false" aria-controls="a2">Is the event beginner-friendly?</button>
+            <div id="a2" class="panel">Yes! We have mentors and intro resources to help you get started.</div>
+          </div>
+          <div class="card" style="padding:.4rem">
+            <button type="button" class="faq-q" aria-expanded="false" aria-controls="a3">What should I prepare?</button>
+            <div id="a3" class="panel">Bring a charged laptop, install an editor (VS Code), and sign in to GitHub.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
   <footer>
-    © 2025 Tech Vayuna | SRMIST
+    <div class="container footer-grid">
+      <p class="mb-0">© <span id="year"></span> Tech Vayuna Club • All rights reserved.</p>
+      <div style="display:flex; gap:.6rem">
+        <a class="badge" href="#" aria-label="Instagram">Instagram</a>
+        <a class="badge" href="#" aria-label="LinkedIn">LinkedIn</a>
+        <a class="badge" href="mailto:techvayuna@club.org" aria-label="Email">Email</a>
+      </div>
+    </div>
   </footer>
 
+  <script>
+    // Mobile menu toggle
+    const toggle = document.getElementById('nav-toggle');
+    const menu = document.getElementById('nav-menu');
+    toggle.addEventListener('click', () => {
+      const open = menu.classList.toggle('open');
+      toggle.setAttribute('aria-expanded', String(open));
+    });
+
+    // Close menu when clicking a link (mobile)
+    menu.addEventListener('click', (e) => {
+      const t = e.target;
+      if(t.tagName === 'A' && menu.classList.contains('open')){
+        menu.classList.remove('open');
+        toggle.setAttribute('aria-expanded', 'false');
+      }
+    });
+
+    // FAQ accordion
+    document.querySelectorAll('.faq-q').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const panel = document.getElementById(btn.getAttribute('aria-controls'));
+        const expanded = btn.getAttribute('aria-expanded') === 'true';
+        btn.setAttribute('aria-expanded', String(!expanded));
+        panel.classList.toggle('open');
+      });
+    });
+
+    // Simple client-side registration handling (demo only)
+    const form = document.getElementById('reg-form');
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const data = Object.fromEntries(new FormData(form).entries());
+      try{
+        const list = JSON.parse(localStorage.getItem('tv_registrations')||'[]');
+        list.push({...data, createdAt: new Date().toISOString()});
+        localStorage.setItem('tv_registrations', JSON.stringify(list));
+        alert('Thanks for registering! We\'ve saved your details locally. (Replace this with Google Form submission.)');
+        form.reset();
+      }catch(err){console.error(err);}
+    });
+
+    // Footer year
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
