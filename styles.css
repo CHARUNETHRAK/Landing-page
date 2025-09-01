@@ -92,7 +92,7 @@ top: 0; left: 0;
 width: 100%; height: 100%;
 background: url("assets/logo.png") no-repeat center;
 background-size: 400px;   /* adjust size */
-opacity: 0.08;            /* faint watermark */
+opacity: 0.5;            /* faint watermark */
 pointer-events: none;
 z-index: 0;
 }
@@ -132,9 +132,43 @@ min-height: min(90vh, 850px);
    Features / Tracks
 ------------------- */
 .grid{display:grid; gap:1rem; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr))}
-.feature{padding:1.1rem}
+.feature{padding:1.1rem; transition: transform 0.3s ease, box-shadow 0.3s ease; cursor: pointer;}
+.feature:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 10px 20px rgba(255, 106, 61, 0.4), 0 6px 6px rgba(243, 18, 99, 0.3);
+}
 .feature h3{margin:.2rem 0 .4rem; font-size:1.05rem}
 .feature p{color:#cbd5e1; margin:0}
+
+/* Schedule Card Hover */
+.schedule-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+.schedule-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 10px 20px rgba(255, 106, 61, 0.4), 0 6px 6px rgba(243, 18, 99, 0.3);
+}
+
+/* Speaker Card Hover */
+.speaker {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+.speaker:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 10px 20px rgba(255, 106, 61, 0.4), 0 6px 6px rgba(243, 18, 99, 0.3);
+}
+
+/* Map Preview Hover */
+.map-preview {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+.map-preview:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 10px 20px rgba(255, 106, 61, 0.4), 0 6px 6px rgba(243, 18, 99, 0.3);
+}
 
 /* ------------------
    Schedule Timeline
@@ -181,6 +215,32 @@ input::placeholder, textarea::placeholder{color:#9aa3b2}
 footer{border-top:1px solid var(--border); padding:2rem 0; color:#9aa3b2}
 .footer-grid{display:grid; gap:1rem; grid-template-columns: 1fr; align-items:center}
 @media (min-width: 720px){ .footer-grid{grid-template-columns: 1fr auto} }
+
+/* ------------------
+   Hero Logo Animation
+------------------- */
+.hero-logo {
+  position: absolute;
+  right: 10%;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 300px;
+  height: auto;
+  opacity: 0.5;
+  z-index: 0;
+  animation: fadeIn 3s ease-in;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-50%) translateY(20px);
+  }
+  to {
+    opacity: 0.5;
+    transform: translateY(-50%);
+  }
+}
 
 /* ------------------
    Utilities
